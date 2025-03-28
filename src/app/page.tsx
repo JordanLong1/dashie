@@ -1,7 +1,11 @@
 
 import styles from "./page.module.css";
+import Link from 'next/link'
+import Image from "next/image";
+
 
 type Dashboard = {
+  id: number;
   uuid: string;
   name: string;
   description: string;
@@ -23,10 +27,16 @@ export default async function Home() {
       <h1>Dashboards</h1>
       <div className={styles.dashboardList}>
         {dashboards.map((dashboard) => (
-          <div key={dashboard.name} className={styles.dashboardCard}>
+          <div key={dashboard.id} className={styles.dashboardCard}>
+            <Link href={`/dashboard/${dashboard.id}`}>
+              <Image width={500} height={500} src={dashboard.image} alt={dashboard.name} />
+            </Link>
             <h2>{dashboard.name}</h2>
             <p>{dashboard.description}</p>
             <p>Price: {dashboard.price}</p>
+            <Link href={`/dashboard/${dashboard.id}`}>
+              <button className={styles.button}>View Dashboard</button>
+            </Link>
           </div>
         ))}
       </div>
